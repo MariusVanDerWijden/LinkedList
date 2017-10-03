@@ -8,21 +8,25 @@ My implementation takes advantage of the LinkedList properties, by appending the
 
 I provided a variety of TestCases to ensure the Correctness of my Implementation.
 
+##Times
 list.AddAll();
 
 Measured times with lists of size: 1000 (average of 5000 trials)
+```
 Java.util.LinkedList:   17272 ns
 New Implementation:     338 ns
+```
 
 Measured times with lists of size: 10000 (average of 5000 trials)
-
+```
 Java.util.LinkedList:   104362 ns
 New Implementation:     472 ns
+```
 
 Measured times with lists of size: 100000 (average of 5000 trials)
-
+```
 Java.util.LinkedList:   1041257 ns
 New Implementation:     1880 ns
-
+```
 
 
