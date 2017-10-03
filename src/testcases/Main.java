@@ -2,6 +2,7 @@ package testcases;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * Created by matematik on 3/28/17.
@@ -9,7 +10,7 @@ import java.util.Iterator;
 public class Main {
 
     public static void main(String[] args){
-        checkTestCases(1000);
+        checkTestCases(100000);
     }
 
     private static void checkTestCases(int testSize){
@@ -17,24 +18,61 @@ public class Main {
         //checkPerformance(testSize);
         //System.out.println(checkCorArrayList(testSize));
         //System.out.println(checkAddAllConstructor(testSize));
-        System.out.println(checkIterator(testSize));
+        //System.out.println(checkIterator(testSize));
+        System.out.println(checkPerfNew(testSize,5000));
+        System.out.println(checkPerfOld(testSize, 5000));
+
     }
 
-    private static void checkPerformance(int testSize){
-        int iterations = 50000;
-        int testsize = 1000;
+    private static long checkPerfNew(int testSize, int iterations){
+        long l = 0;
+        for (int i = 0; i < iterations; i++){
+            l += addAllNew(testSize);
+        }
+        return l!=0? l/iterations:Long.MAX_VALUE;
+    }
+
+    private static long checkPerfOld(int testSize, int iterations){
+        long l = 0;
+        for (int i = 0; i < iterations; i++){
+            l += addAllOld(testSize);
+        }
+        return l!=0? l/iterations:Long.MAX_VALUE;
+    }
+
+
+    private static long addAllOld(int testSize){
+        java.util.LinkedList<Object> list = generateStdLinkedListConst(testSize,"asdf");
+        java.util.LinkedList<Object> list2 = generateStdLinkedListConst(testSize,"asdf2");
+        long l1 = System.nanoTime();
+        list.addAll(list2);
+        long l2 = System.nanoTime();
+        return l2 - l1;
+    }
+
+    private static long addAllNew(int testSize){
+        test.LinkedList<Object> newList = generateNewLinkedListConst(testSize,"asdf");
+        test.LinkedList<Object> newList2 = generateNewLinkedListConst(testSize,"asdf2");
+        long l3 = System.nanoTime();
+        newList.addAll(newList2);
+        long l4 = System.nanoTime();
+        return l4 -l3;
+    }
+
+    private static void checkPerformance(int testsize){
+        int iterations = 5000;
         double d = 1.0;
 
-        for(int q = 0; q < testsize; q++){
-            d += checkAdd(iterations);
+        for(int q = 0; q < iterations; q++){
+            d += checkAdd(testsize);
         }
-        d = d/testsize;
+        d = d/iterations;
 
         double b = 1.0;
-        for(int q = 0; q < testsize; q++){
-            b += checkAddAll(iterations);
+        for(int q = 0; q < iterations; q++){
+            b += checkAddAll(testsize);
         }
-        b = b/testsize;
+        b = b/iterations;
 
         System.out.println("D: "+d+" b: "+b );
         //System.out.println(checkAdd(2000));
