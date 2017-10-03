@@ -8,7 +8,7 @@ My implementation takes advantage of the LinkedList properties, by appending the
 
 I provided a variety of TestCases to ensure the Correctness of my Implementation.
 
-##Times
+## Times
 list.AddAll();
 
 Measured times with lists of size: 1000 (average of 5000 trials)
